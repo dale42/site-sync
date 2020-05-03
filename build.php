@@ -40,7 +40,7 @@ $iterator = new RecursiveIteratorIterator(
 );
 
 $phar = new Phar("sitesync.phar");
-$phar->setSignatureAlgorithm(\Phar::SHA1);
+$phar->setSignatureAlgorithm(\Phar::SHA512);
 $phar->startBuffering();
 $phar->buildFromIterator($iterator, $dir);
 //default executable
