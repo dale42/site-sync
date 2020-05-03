@@ -1,0 +1,19 @@
+{
+  "name": "vendor_name/package_name",
+  "description": "description_text",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "require": {
+    "consolidation/robo": "^2.0"
+  },
+  "autoload":{
+    "psr-4":{
+      "RoboSiteSync\\":"src"
+    }
+  },
+  "scripts": {
+    "build": [
+      "@php build.php"
+    ]
+  }
+}
