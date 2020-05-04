@@ -65,7 +65,7 @@ class SiteCmd extends Tasks {
       $siteList = $this->datastore->getSiteList();
       $maxNameLength = max( array_map( 'strlen', array_keys( $siteList ) ) );
       $output = array_reduce(
-        $datastore->getSiteList(),
+        $this->datastore->getSiteList(),
         function($carry, $item) use ( $maxNameLength ) {
           return $carry .= sprintf("   %-{$maxNameLength}s  %s\n", $item->name, $item->description);
         }, "Site List:\n"
