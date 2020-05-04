@@ -34,10 +34,6 @@ class SiteCmd extends Tasks {
     /*
      * Validation
      */
-    if (!Datastore::exists()) {
-      $this->say("No configuration directory. Please use init to create.");
-      return;
-    }
     if ( empty($action) ) {
       $this->say('Please specific an action: ' . implode(' | ', $this->validActions));
       return;

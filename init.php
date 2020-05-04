@@ -20,7 +20,6 @@ $commandClasses = [
   \RoboSiteSync\Commands\SiteCmd::class,
   \RoboSiteSync\Commands\PairCmd::class,
   \RoboSiteSync\Commands\SyncCmd::class,
-  \RoboSiteSync\Commands\InitCmd::class,
 ];
 
 $statusCode = (new \Robo\Runner($commandClasses))

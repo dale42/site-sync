@@ -2,6 +2,7 @@
 
 namespace RoboSiteSync\Entity;
 
+use Robo\ResultData;
 use RoboSiteSync\Defaults;
 use RoboSiteSync\Utilities;
 use Symfony\Component\Yaml\Yaml;
@@ -42,6 +43,39 @@ class Datastore {
     );
   }
 
+  public static function addDatastore( $directory = NULL ) {
+    if ( Datastore::exists() ) {
+      return new ResultData( ResultData::EXITCODE_OK, "Configuration directory exists" );
+    }
+
+    if ( is_null( $directory ) ) {
+      $directory = Defaults::getInstance()->getConfigDir();
+    }
+
+    // Suppress the error handler with our own to grab the error message.
+    $errorMessage = '';
+    set_error_handler(
+      function ($errno, $errstr, $errfile, $errline) use (&$errorMessage) {
+        $errorMessage = $errstr;
+        return TRUE;
+      },
+      E_ALL | E_STRICT
+    );
+
+    // Create the configuration directory.
+    if ( @mkdir( $directory ) ) {
+      $result = new ResultData( ResultData::EXITCODE_OK, "Configuration directory: {$directory}, created" );
+    }
+    else {
+      $result = new ResultData( ResultData::EXITCODE_ERROR, "Could not create configuration directory: $errorMessage" );
+    }
+
+    // Restore the previous error handler.
+    restore_error_handler();
+
+    return $result;
+  }
+
   /**
    * DataStore constructor.
    *
@@ -56,13 +90,12 @@ class Datastore {
     else {
       $this->directory = $directory;
     }
-    if (
-      ! file_exists($this->directory)
-      || ! is_dir($this->directory)
-      || ! is_readable($this->directory)
-      || ! is_writeable($this->directory)
-    ) {
-      throw new \Exception("Datastore is unavailable.");
+
+    if ( ! self::exists( $directory ) ) {
+      $result = self::addDatastore( $directory );
+      if ( ! $result->wasSuccessful() ) {
+        throw new \Robo\Exception\TaskException( $this, $result->getMessage() );
+      }
     }
   }
 
