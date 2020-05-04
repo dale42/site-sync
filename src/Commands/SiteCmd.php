@@ -63,9 +63,12 @@ class SiteCmd extends Tasks {
   protected function siteList($sitename, $opts) {
     $datastore = new Datastore();
     if ($sitename == '') {
-      $output = array_reduce($datastore->getSiteList(),
-        function($carry, $item) {
-          return $carry .= "{$item->name} ({$item->description})\n";
+      $siteList = $datastore->getSiteList();
+      $maxNameLength = max( array_map( 'strlen', array_keys( $siteList ) ) );
+      $output = array_reduce(
+        $datastore->getSiteList(),
+        function($carry, $item) use ( $maxNameLength ) {
+          return $carry .= sprintf("   %-{$maxNameLength}s  %s\n", $item->name, $item->description);
         }, "Site List:\n"
       );
       $this->say($output);
