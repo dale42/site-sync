@@ -61,9 +61,8 @@ class SiteCmd extends Tasks {
   }
 
   protected function siteList($sitename, $opts) {
-    $datastore = new Datastore();
     if ($sitename == '') {
-      $siteList = $datastore->getSiteList();
+      $siteList = $this->datastore->getSiteList();
       $maxNameLength = max( array_map( 'strlen', array_keys( $siteList ) ) );
       $output = array_reduce(
         $datastore->getSiteList(),
@@ -74,7 +73,7 @@ class SiteCmd extends Tasks {
       $this->say($output);
     }
     else {
-      $site = $datastore->getSite($sitename);
+      $site = $this->datastore->getSite($sitename);
       $output = (is_null($site)) ? "$site does not exist" : $site->toPrint();
       $this->say($output);
     }
