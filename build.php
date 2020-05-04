@@ -20,9 +20,11 @@ $exclude = [
     'phpdoc.xml',
     'phpunit.xml.dist',
     'README.md',
+    'CHANGELOG.md',
     '.git',
     '.idea',
-    'build.php'
+    'build.php',
+    'site-sync.phar'
 ];
 
 $filter = function ($file, $key, $iterator) use ($exclude) {
