@@ -1,7 +1,7 @@
 <?php
 
 const APP_NAME = "RoboSiteSync";
-const APP_VERSION = '0.1.0';
+const APP_VERSION = '0.2.0';
 
 // If we're running from phar load the phar autoload file.
 $pharPath = \Phar::running(true);
@@ -20,7 +20,6 @@ $commandClasses = [
   \RoboSiteSync\Commands\SiteCmd::class,
   \RoboSiteSync\Commands\PairCmd::class,
   \RoboSiteSync\Commands\SyncCmd::class,
-  \RoboSiteSync\Commands\InitCmd::class,
 ];
 
 $statusCode = (new \Robo\Runner($commandClasses))

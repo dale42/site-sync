@@ -1,4 +1,4 @@
-# Robo Site Sync
+# Site Sync
 
 A Robo based utility designed to synchronize website content for MySQL based websites such as Drupal and WordPress. It's intended use is keeping local and development websites up-to-date with the live website. 
 

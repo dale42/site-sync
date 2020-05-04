@@ -20,9 +20,11 @@ $exclude = [
     'phpdoc.xml',
     'phpunit.xml.dist',
     'README.md',
+    'CHANGELOG.md',
     '.git',
     '.idea',
-    'build.php'
+    'build.php',
+    'site-sync.phar'
 ];
 
 $filter = function ($file, $key, $iterator) use ($exclude) {
@@ -40,7 +42,7 @@ $iterator = new RecursiveIteratorIterator(
 );
 
 $phar = new Phar("sitesync.phar");
-$phar->setSignatureAlgorithm(\Phar::SHA1);
+$phar->setSignatureAlgorithm(\Phar::SHA512);
 $phar->startBuffering();
 $phar->buildFromIterator($iterator, $dir);
 //default executable
