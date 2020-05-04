@@ -2,6 +2,7 @@
 
 namespace RoboSiteSync\Entity;
 
+use Robo\Exception\TaskException;
 use Robo\ResultData;
 use RoboSiteSync\Defaults;
 use RoboSiteSync\Utilities;
@@ -77,11 +78,11 @@ class Datastore {
   }
 
   /**
-   * DataStore constructor.
+   * Datastore constructor.
    *
    * @param null $directory
    *
-   * @throws \Exception
+   * @throws \Robo\Exception\TaskException
    */
   public function __construct( $directory = NULL ) {
     if ( is_null( $directory ) ) {
@@ -94,7 +95,7 @@ class Datastore {
     if ( ! self::exists( $directory ) ) {
       $result = self::addDatastore( $directory );
       if ( ! $result->wasSuccessful() ) {
-        throw new \Robo\Exception\TaskException( $this, $result->getMessage() );
+        throw new TaskException( $this, $result->getMessage() );
       }
     }
   }
