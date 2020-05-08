@@ -1,5 +1,9 @@
 # Change Log
 
+### This release
+
+* App name changed to SiteSync
+
 ### Version 0.2.0 (Sunday May 3, 2020)
 
 * Add CHANGELOG.md file
