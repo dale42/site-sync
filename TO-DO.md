@@ -32,3 +32,11 @@
 - Schema version to site and pair yml files
 
 - uncommitted file check warning
+
+- add confirmation to site delete
+
+- add confirmation to pair delete
+
+- add logic to verify site name is valid
+
+- add logic to verify pair name is valid
