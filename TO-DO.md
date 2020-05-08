@@ -3,6 +3,8 @@
 
 - _pair create_ opens config file
 
+- Figure out licensing
+
 - Make post sync localization run from pair files
   - Add attribute to Site
   - Add cli execute directive
