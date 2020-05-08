@@ -8,6 +8,7 @@
 * Added test for datastore creation
 * Added `composer test` script for running tests
 * Refactor $datastore handling in _pair_ command
+* On Mac, automatically open pair yml file on `sitesync pair create {pair-name}`
 
 ### Version 0.2.0 (Sunday May 3, 2020)
 

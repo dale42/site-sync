@@ -119,6 +119,10 @@ class Datastore {
     return $yamlFilename = $this->directory . '/' . self::sitenameToFilename($sitename);
   }
 
+  public function getPairConfigPath( $pairname ) {
+    return $yamlFilename = $this->directory . '/' . self::pairnameToFilename($pairname);
+  }
+
   public function saveSite( Site $site ) {
     // The dumper can not add yaml comments. To work around this, add a token
     // value that can be replaced with the comment.

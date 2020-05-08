@@ -85,6 +85,11 @@ class PairCmd extends Tasks {
       $initialData = Utilities::promptForProperties(Pair::class, $pairName);
     }
     $this->datastore->savePair(new Pair($initialData));
+    $saveFilePath = $this->datastore->getPairConfigPath( $pairName );
+    $this->say("Configuration file created in $saveFilePath" );
+    if ( php_uname('s') == 'Darwin') {
+      $this->taskExec("open $saveFilePath")->run();
+    }
   }
 
   protected function deletePair($pairName, $options) {

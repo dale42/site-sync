@@ -1,8 +1,6 @@
 # To-Do List
 
 
-- _pair create_ opens config file
-
 - Figure out licensing
 
 - Make post sync localization run from pair files
