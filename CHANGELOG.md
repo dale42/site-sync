@@ -4,6 +4,9 @@
 
 * App name changed to SiteSync
 * Fix propagation of $directory param in Datastore::AddDatastore
+* Added PHPUnit testing and composer package mikey179/vfsstream for file system tests
+* Added test for datastore creation
+* Added `composer test` script for running tests
 
 ### Version 0.2.0 (Sunday May 3, 2020)
 
