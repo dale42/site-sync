@@ -9,6 +9,7 @@
 * Added `composer test` script for running tests
 * Refactor $datastore handling in _pair_ command
 * On Mac, automatically open pair yml file on `sitesync pair create {pair-name}`
+* Added a working `post_sync_tasks` functionality. Tasks specified in the pair file `post_sync_tasks` option are ran after the site is sync'ed. 
 
 ### Version 0.2.0 (Sunday May 3, 2020)
 

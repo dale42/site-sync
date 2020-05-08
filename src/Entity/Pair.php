@@ -25,7 +25,7 @@ class Pair extends Entity {
    *
    * @var string
    */
-  public $localizationTasks;
+  public $postSyncTasks;
 
   /**
    * A very short description of the site. e.g.: Sample Project test
