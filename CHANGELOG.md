@@ -3,6 +3,7 @@
 ### This release
 
 * App name changed to SiteSync
+* Fix propagation of $directory param in Datastore::AddDatastore
 
 ### Version 0.2.0 (Sunday May 3, 2020)
 
