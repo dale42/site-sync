@@ -45,7 +45,7 @@ class Datastore {
   }
 
   public static function addDatastore( $directory = NULL ) {
-    if ( Datastore::exists() ) {
+    if ( Datastore::exists( $directory ) ) {
       return new ResultData( ResultData::EXITCODE_OK, "Configuration directory exists" );
     }
 
