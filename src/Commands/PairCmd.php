@@ -15,6 +15,12 @@ class PairCmd extends Tasks {
     'delete',
   ];
 
+  protected $datastore;
+
+  public function __construct() {
+    $this->datastore = new Datastore();
+  }
+
   /**
    * Pair management
    *
@@ -55,9 +61,8 @@ class PairCmd extends Tasks {
   }
 
   protected function listPair( $pairName, $opts ) {
-    $datastore = new Datastore();
     if ($pairName == '') {
-      $output = array_reduce($datastore->getPairList(),
+      $output = array_reduce($this->datastore->getPairList(),
         function($carry, $item) {
           return $carry .= "{$item->name} ({$item->description})\n";
         }, "Pair List:\n"
@@ -65,7 +70,7 @@ class PairCmd extends Tasks {
       $this->say($output);
     }
     else {
-      $pair = $datastore->getPair($pairName);
+      $pair = $this->datastore->getPair($pairName);
       $output = (is_null($pair)) ? "{$pairName} does not exist" : $pair->toPrint();
       $this->say($output);
     }
@@ -79,11 +84,11 @@ class PairCmd extends Tasks {
     if ($opts['prompt']) {
       $initialData = Utilities::promptForProperties(Pair::class, $pairName);
     }
-    (new Datastore())->savePair(new Pair($initialData));
+    $this->datastore->savePair(new Pair($initialData));
   }
 
   protected function deletePair($pairName, $options) {
-    (new Datastore())->deletePair( $pairName );
+    $this->datastore->deletePair( $pairName );
   }
 
 }

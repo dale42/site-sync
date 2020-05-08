@@ -7,6 +7,7 @@
 * Added PHPUnit testing and composer package mikey179/vfsstream for file system tests
 * Added test for datastore creation
 * Added `composer test` script for running tests
+* Refactor $datastore handling in _pair_ command
 
 ### Version 0.2.0 (Sunday May 3, 2020)
 
