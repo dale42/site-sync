@@ -16,7 +16,7 @@
       "@php build.php"
     ],
     "test": [
-      "./vendor/bin/phpunit --version"
+      "./vendor/bin/phpunit --testdox tests"
     ]
   },
   "require-dev": {
