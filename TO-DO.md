@@ -3,10 +3,6 @@
 
 - Figure out licensing
 
-- Make post sync localization run from pair files
-  - Add attribute to Site
-  - Add cli execute directive
-  
 - Complete _site verify_ command
 
 - Add better annotation parsing
