@@ -9,6 +9,8 @@ use RoboSiteSync\Utilities;
 
 class SiteCmd extends Tasks {
 
+  use SiteVerifyTrait;
+
   public $validActions = [
     'list',
     'create',
@@ -101,30 +103,10 @@ class SiteCmd extends Tasks {
   }
 
   protected function verifySite( $sitename, $opts ) {
-    $status = [];
     $site = $this->datastore->getSite( $sitename );
-
-    if ($site->hostDomain == 'localhost') {
-      // Test that directories exist
-      $status['projectDir'] =  Utilities::verifyDirectory( $site->projectDir );
-      $status['websiteDir'] =  Utilities::verifyDirectory( $site->websiteDir );
-      $status['backupDir'] =  Utilities::verifyDirectory( $site->backupDir );
-    }
-    else {
-      $dirTask = $this->taskExec('pwd');
-      $result = $this->taskSshExec($site->hostDomain, $site->hostUser)
-        ->port((int) $site->hostSshPort)
-        ->exec('ls -alh')->quiet()
-        ->run();
-      $status['hostTest']['getMessage'] = $result->getMessage();
-      $status['hostTest']['getData'] = $result->getData();
-      $status['hostTest']['getOutputData'] = $result->getOutputData();
-      $status['hostTest']['getExitCode'] = $result->getExitCode();
-      $status['hostTest']['wasSuccessful'] = $result->wasSuccessful();
-      $status['hostTest']['getData'] = $result->getData();
-    }
-
-    $this->say(print_r($status, 1));
+    $site->verification = $this->checkSiteProperties( $site );
+    $this->datastore->saveSite( $site );
+    $this->say(print_r( $site->verification, 1));
   }
 
 }
