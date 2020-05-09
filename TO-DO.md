@@ -1,13 +1,14 @@
 # To-Do List
 
-
-- Figure out licensing
+- Support multiple file directory entries for Drupal public and private files
 
 - Complete _site verify_ command
 
 - Add better annotation parsing
   - Proper annotation syntax in docblock
   - Saved Property designation
+
+- Figure out licensing
 
 - Add some rudimentary verify to site
 
