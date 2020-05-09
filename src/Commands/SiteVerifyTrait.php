@@ -49,7 +49,7 @@ trait SiteVerifyTrait {
       $verification = $this->localhostSiteTests( $verification, $site );
     }
     else {
-      $verification = $this->remoteHostSiteTests( $site );
+      $verification = $this->remoteHostSiteTests( $verification, $site );
     }
 
     if ( count( $verification['tests']['failed'] ) == 0 ) {
@@ -76,20 +76,42 @@ trait SiteVerifyTrait {
     return $verification;
   }
 
-  private function remoteHostSiteTests( Site $site ) {
-    $dirTask = $this->taskExec('pwd');
+  private function remoteHostSiteTests( array $verification, Site $site ) {
     $result = $this->taskSshExec($site->hostDomain, $site->hostUser)
                    ->port((int) $site->hostSshPort)
-                   ->exec('ls -alh')->quiet()
+                   ->exec('cd ~')->quiet()
                    ->run();
-    $status['hostTest']['getMessage'] = $result->getMessage();
-    $status['hostTest']['getData'] = $result->getData();
-    $status['hostTest']['getOutputData'] = $result->getOutputData();
-    $status['hostTest']['getExitCode'] = $result->getExitCode();
-    $status['hostTest']['wasSuccessful'] = $result->wasSuccessful();
-    $status['hostTest']['getData'] = $result->getData();
+    if ( $result->wasSuccessful() ) {
+      $verification['tests']['passed']['sshCredentials'] = 'Good';
+    }
+    else {
+      $verification['tests']['failed']['sshCredentials'] = 'One of the following is incorrect: host_domain, host_user, hostSshPort';
+    }
 
-    return $status;
+    $properties = ['projectDir', 'websiteDir', 'backupDir', 'filesDir'];
+
+    if ( isset( $verification['tests']['passed']['sshCredentials'] ) ) {
+      foreach ($properties as $property) {
+        $directory = $site->getFullPath( $property );
+        $result = $this->taskSshExec($site->hostDomain, $site->hostUser)
+                       ->port((int) $site->hostSshPort)
+                       ->exec("cd $directory")->quiet()
+                       ->run();
+        if ( $result->wasSuccessful() )  {
+          $verification['tests']['passed'][$property] = 'Good';
+        }
+        else {
+          $verification['tests']['failed'][$property] = 'Bad';
+        }
+      }
+    }
+    else {
+      foreach ( $properties as $property ) {
+        $verification['tests']['skipped'][$property] = 'Requires working SSH credentials';
+      }
+    }
+
+    return $verification;
   }
 
 }

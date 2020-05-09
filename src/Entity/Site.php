@@ -115,7 +115,10 @@ class Site extends Entity {
       $properties = $propertyList;
     }
     else {
-      $properties = ['projectDir', 'websiteDir', 'backupDir', 'filesDir'];
+      $properties = [
+        'projectDir', 'websiteDir', 'backupDir', 'filesDir',
+        'host_doman', 'host_user', 'host_ssh_port',
+      ];
     }
 
     return $this->calculateChecksum( $properties );
