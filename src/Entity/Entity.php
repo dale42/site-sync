@@ -14,6 +14,13 @@ class Entity {
   public $name;
 
   /**
+   * Used to track the verification status of important object properties.
+   *
+   * @var string;
+   */
+  public $verification;
+
+  /**
    * Site constructor.
    *
    * @param array|null $initialData
@@ -43,6 +50,16 @@ class Entity {
 
   public function toPrint() {
     return print_r($this->toArray(), 1);
+  }
+
+  protected function calculateChecksum( array $propertyList ) {
+    asort( $propertyList );
+    $propertyString = '';
+    foreach ( $propertyList as $property ) {
+      $propertyString .= $this->{$property} ?? '';
+    }
+
+    return hash( 'sha256', $propertyString );
   }
 
 }

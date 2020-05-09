@@ -110,4 +110,42 @@ class Site extends Entity {
     parent::__construct($initialData);
   }
 
+  public function propertyChecksum( array $propertyList = [] ) {
+    if ( count( $propertyList ) > 0 ) {
+      $properties = $propertyList;
+    }
+    else {
+      $properties = [
+        'projectDir', 'websiteDir', 'backupDir', 'filesDir',
+        'host_doman', 'host_user', 'host_ssh_port',
+      ];
+    }
+
+    return $this->calculateChecksum( $properties );
+  }
+
+  public function getFullPath( $property ) {
+    $firstChar = substr( $this->{$property}, 0, 1);
+    $isRelative = ( $firstChar != '/' && $firstChar != '~' ) ? TRUE : FALSE;
+
+    switch ( $property ) {
+      case 'projectDir':
+        $fullPath = $this->projectDir;
+        break;
+      case 'websiteDir':
+        $fullPath = ( $isRelative ) ? $this->projectDir .'/'. $this->websiteDir : $this->websiteDir;
+        break;
+      case "filesDir":
+        $fullPath = ( $isRelative ) ? $this->projectDir .'/'. $this->filesDir : $this->filesDir;
+        break;
+      case 'backupDir':
+        $fullPath = ( $isRelative ) ? $this->projectDir .'/'. $this->backupDir : $this->backupDir;
+        break;
+      default:
+        $fullPath = NULL;
+    }
+
+    return $fullPath;
+  }
+
 }
