@@ -3,13 +3,12 @@
 
 - Figure out licensing
 
-- Complete _site verify_ command
+- Improve _site verify_ command:
+  - check that project path is not relative
 
 - Add better annotation parsing
   - Proper annotation syntax in docblock
   - Saved Property designation
-
-- Add some rudimentary verify to site
 
 - Make sure destination can only be localhost
 
