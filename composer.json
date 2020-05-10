@@ -4,7 +4,8 @@
   "minimum-stability": "stable",
   "license": "proprietary",
   "require": {
-    "consolidation/robo": "^2.0"
+    "consolidation/robo": "^2.0",
+    "consolidation/comments": "^1.0"
   },
   "autoload":{
     "psr-4":{
