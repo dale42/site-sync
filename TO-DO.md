@@ -1,17 +1,26 @@
 # To-Do List
 
-- Support multiple file directory entries for Drupal public and private files
+- Datastore: Preserve comment changes when resaving a Site or Pair
+
+- Support multiple file directory entries for Site Class for fileDir. i.e. to support Drupal public and private files systems
 
 - Improve _site verify_ command:
   - check that project path is not relative
+  - check cms bits are where they're expected
+
+- Implement _pair verify_ command  
+  - source and dest sites exist
+  - source and dest sites are validated
+  - check post_sync_tasks
+  - check that destination is local
+
+- Add check to `sync {pair}` preventing a run if destination not local
+
+- `sync {pair}`: - Run verification if yml files changed since last verification (compare saved checksum to current checksome)
 
 - Add better annotation parsing
   - Proper annotation syntax in docblock
   - Saved Property designation
-
-- Figure out licensing
-
-- Make sure destination can only be localhost
 
 - Add schema attribute to yaml file
 
@@ -19,13 +28,16 @@
   - Use annotation to designate which parameters should be validated
   - On _sync_ re-run verify when a data change is detected
 
-- Run verification against changed yml files
+- Figure out licensing
 
-- Add confirmation to delete
+- Add confirmation to `site delete`
+
+- Add confirmation to `pair delete`
 
 - Schema version to site and pair yml files
 
-- uncommitted file check warning
+- `sync {pair}`:
+  - uncommitted file check warning
 
 - add confirmation to site delete
 
