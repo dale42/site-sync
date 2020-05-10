@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e4233f8be5b74134bfa04d4ad729204",
+    "content-hash": "e7cb3f5fefbf4550eb08518c04f3d81f",
     "packages": [
         {
             "name": "consolidation/annotated-command",
@@ -64,6 +64,54 @@
             ],
             "description": "Initialize Symfony Console commands from annotated command class methods.",
             "time": "2020-02-07T03:35:30+00:00"
+        },
+        {
+            "name": "consolidation/comments",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/consolidation/comments.git",
+                "reference": "908832ce3c8174a9414d741913543fd058aac5fb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/consolidation/comments/zipball/908832ce3c8174a9414d741913543fd058aac5fb",
+                "reference": "908832ce3c8174a9414d741913543fd058aac5fb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "phpunit/php-code-coverage": "~2|~4",
+                "phpunit/phpunit": "^4.8",
+                "satooshi/php-coveralls": "^1.0",
+                "squizlabs/php_codesniffer": "^2.8",
+                "symfony/yaml": "^3.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Consolidation\\Comments\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Greg Anderson",
+                    "email": "greg.1.anderson@greenknowe.org"
+                }
+            ],
+            "description": "A tool for preserving comments, e.g. when parsing YAML files.",
+            "time": "2019-07-30T05:52:24+00:00"
         },
         {
             "name": "consolidation/config",

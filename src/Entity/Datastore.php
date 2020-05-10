@@ -2,6 +2,7 @@
 
 namespace RoboSiteSync\Entity;
 
+use Consolidation\Comments\Comments;
 use Robo\Exception\TaskException;
 use Robo\ResultData;
 use RoboSiteSync\Defaults;
@@ -123,30 +124,41 @@ class Datastore {
     return $yamlFilename = $this->directory . '/' . self::pairnameToFilename($pairname);
   }
 
-  public function saveSite( Site $site ) {
+  public function saveSite( Site $site, bool $addInitialDesc = FALSE ) {
     // The dumper can not add yaml comments. To work around this, add a token
     // value that can be replaced with the comment.
-    $propertiesPlusTokens = [];
+    $propsAndDescTokens = [];
     foreach ($site->toArray() as $key => $value) {
-      $propertiesPlusTokens["{$key}_description"] = '';
-      $propertiesPlusTokens[$key] = $value;
+      if ( $addInitialDesc ) {
+        $propsAndDescTokens["{$key}_description"] = '';
+      }
+      $propsAndDescTokens[$key] = $value;
     }
 
-    $storageString = Yaml::dump( $this->keysToSnakeCase( $propertiesPlusTokens ) );
-
-    // Replace tokens with comments
-    $descriptions = $this->keysToSnakeCase( Utilities::fetchPropertyDescriptions( Site::class ) );
-    foreach ( $descriptions as $name => $description ) {
-      $storageString = str_replace("{$name}_description: ''", "\n# $description", $storageString);
-    }
-    $storageString = trim( $storageString );
-
+    $storageString = Yaml::dump( $this->keysToSnakeCase( $propsAndDescTokens ) );
     $filepath = $this->directory . '/' . self::sitenameToFilename($site->name);
+
+    if ( $addInitialDesc ) {
+      // Replace tokens with comments
+      $descriptions = $this->keysToSnakeCase( Utilities::fetchPropertyDescriptions( Site::class ) );
+      foreach ( $descriptions as $name => $description ) {
+        $storageString = str_replace("{$name}_description: ''", "\n# $description", $storageString);
+      }
+      $storageString = trim( $storageString );
+    }
+    else {
+      $commentManager = new Comments();
+      $originalContentString = file_get_contents( $filepath );
+      $commentManager->collect( explode("\n", $originalContentString ) );
+      $storageArrayWithComments = $commentManager->inject( explode( "\n", $storageString ) );
+      $storageString = implode( "\n", $storageArrayWithComments );
+    }
+
     file_put_contents( $filepath, $storageString );
   }
 
   public function deleteSite( $sitename ) {
-    $filepath = $this->directory . '/' . self::sitenameToFilename($sitename);
+    $filepath = $this->directory . '/' . self::sitenameToFilename( $sitename );
     unlink( $filepath );
   }
 
