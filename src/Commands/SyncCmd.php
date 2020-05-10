@@ -94,6 +94,17 @@ class SyncCmd extends \Robo\Tasks {
          ->progress()
          ->stats()
          ->run();
+
+    if ( is_array( $syncPair->postSyncTasks ) ) {
+      foreach ( $syncPair->postSyncTasks as $task ) {
+        if ( key_exists( 'shell', $task )) {
+          $this->taskExec( $task['shell'] )
+            ->dir( $dest->websiteDir )
+            ->run();
+        }
+      }
+    }
+
   }
 
 }

@@ -47,7 +47,7 @@ class Utilities {
 
   public static function verifyDirectory( $filepath ) {
     $status = ( file_exists($filepath) && is_dir($filepath) && is_readable($filepath) && is_writeable($filepath) );
-    return ($status) ? 'Good' : 'Bad';
+    return $status;
   }
 
   public static function fetchPropertyDescriptions( $entityClassName ) {

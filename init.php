@@ -1,7 +1,7 @@
 <?php
 
-const APP_NAME = "RoboSiteSync";
-const APP_VERSION = '0.2.0';
+const APP_NAME = "SiteSync";
+const APP_VERSION = '0.3.0';
 
 // If we're running from phar load the phar autoload file.
 $pharPath = \Phar::running(true);
