@@ -1,6 +1,10 @@
 # To-Do List
 
-- Datastore: Preserve comment changes when resaving a Site or Pair
+- `Datastore->siteSave`: Preserve order of yaml properties
+
+- `Datastore->pairSave`:
+  - Preserve comment changes on pair yml file
+  - Preserve order of yaml properties in pair yml file
 
 - Support multiple file directory entries for Site Class for fileDir. i.e. to support Drupal public and private files systems
 
