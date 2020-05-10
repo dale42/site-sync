@@ -90,7 +90,7 @@ class SiteCmd extends Tasks {
     if ($opts['prompt']) {
       $initialData = Utilities::promptForProperties(Site::class, $sitename);
     }
-    $this->datastore->saveSite( new Site( $initialData ) );
+    $this->datastore->saveSite( new Site( $initialData ), TRUE );
     $saveFilePath = $this->datastore->getSiteConfigPath( $sitename );
     $this->say("Configuration file created in $saveFilePath" );
     if ( php_uname('s') == 'Darwin') {
